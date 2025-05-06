@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF=8">
+        <meta name="viewport" content="widtg=device-width, initial-scale=1.0">
+
+        <title>Name of store</title>
+        <link rel="stylesheet" href="{% static 'css/order_sent.css' %}">
+    </head>
+
+    <body>
+        <table width="100%" cellspacing="0" cellpadding="0">
+            <tr>
+                <td>
+                    <center>
+                        <h1> Bike - Order Sent </h1>
+                    </center>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p>Nice! Your order is sent.</p>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    {% for item in order.items.all %}
+                        <p><strong>{{ item.product.title }}</strong> - Quantity: {{ item.quantity }} - Price P{{ item.product.price }}</p>
+                    {% endfor %}
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ category.title }} | {% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+    <link rel="stylesheet" href="{% static 'css/main_categ.css' %}">
+
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul class="bc-list">
+            <li><a href="{% url 'frontpage' %}">Home</a></li>
+            <li class="is-active" ><a href="{% url 'main_category_detail' category.slug %}">{{ category.title }}</a></li>
+        </ul>
+    </nav>
+
+    <div class="category-container">
+      <h1 class="title">{{ category.title }}</h1>
+      
+        {% if category.sub_categories.all %}
+            <div class="grid-container">
+                {% for sub_category in menu_sub_categories %}
+                <div class="category-card">
+                    <div class="card-image-container">
+                        <img src="{{ sub_category.sub_category_image.url }}" 
+                            alt="{{ sub_category.title }}"
+                            class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h2 class="category-title">{{ sub_category.title }}</h2>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'sub_category_detail' sub_category.slug %}" 
+                          class="view-link">View</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <p>No products at this moment.</p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+

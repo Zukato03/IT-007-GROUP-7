@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+<div class="mt-5 columns">
+    
+    <div class="column is-6 is-offset-3">
+        <h1 class="title">Sign Up</h1>
+
+        <form method="post" action=".">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="notification is-danger">
+                    <ul>
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+
+            <div class="field">
+                <label class="label">Username</label>
+                <div class="control">
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        <p class="help is-danger">{{ form.username.errors }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">First Name</label>
+                <div class="control">
+                    {{ form.first_name }}
+                    {% if form.first_name.errors %}
+                        <p class="help is-danger">{{ form.first_name.errors }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Last Name</label>
+                <div class="control">
+                    {{ form.last_name }}
+                    {% if form.last_name.errors %}
+                        <p class="help is-danger">{{ form.last_name.errors }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Email</label>
+                <div class="control">
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <p class="help is-danger">{{ form.email.errors }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Contact Number</label>
+                <div class="control">
+                    {{ userprofileForm.contact_number }}
+                    {% if userprofileForm.contact_number.errors %}
+                        <p class="help is-danger">{{ userprofileForm.contact_number.errors }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Address</label>
+                <div class="control">
+                    {{ userprofileForm.address }}
+                    {% if userprofileForm.address.errors %}
+                        <p class="help is-danger">{{ userprofileForm.address.errors }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Zip Code</label>
+                <div class="control">
+                    {{ userprofileForm.zip_code }}
+                    {% if userprofileForm.zip_code.errors %}
+                        <p class="help is-danger">{{ userprofileForm.zip_code.errors }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Password</label>
+                <div class="control">
+                    {{ form.password1 }}
+                    {% if form.password1.errors %}
+                        <p class="help is-danger">{{ form.password1.errors }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Password Confirmation</label>
+                <div class="control">
+                    {{ form.password2 }}
+                    {% if form.password2.errors %}
+                        <p class="help is-danger">{{ form.password2.errors }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <button class="button is-success">Sign Up</button>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <button class="button is-success">
+                        <a href="{% url 'social:begin' 'google-oauth2' %}">Login With Google</a>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

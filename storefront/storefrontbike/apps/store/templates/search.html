@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Search | {% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/search.css' %}">
+
+<div class="search-container">
+    <div class="search-header">
+        <h1 class="main-title">Search Results</h1>
+        <p class="search-query">for "{{ query }}"</p>
+    </div>
+
+    <div id="search" class="search-content">
+        <!-- Toggle Advanced Search -->
+        <div v-if="!isAdvancedSearch" class="toggle-search">
+            <button class="advanced-button" @click="advancedSearch">
+                Advanced Search
+            </button>
+        </div>
+    
+        <!-- Advanced Search Form -->
+        <div v-else class="advanced-search-form">
+            <form method="get" action="{% url 'search' %}">
+                <div class="form-grid">
+                    <!-- Basic Search Section -->
+                    <div class="form-section">
+                        <h2 class="section-title">Advanced Search</h2>
+                        <div class="form-group">
+                            <label class="form-label" for="search-input">Search Term</label>
+                            <input 
+                                type="text" 
+                                id="search-input"
+                                name="query" 
+                                class="form-input" 
+                                value="{{ query }}"
+                            >
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input 
+                                    type="checkbox" 
+                                    name="instock" 
+                                    class="checkbox-input"
+                                    {% if instock %}checked="checked"{% endif %}
+                                >
+                                <span>In Stock Only</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Price Range Section -->
+                    <div class="form-section">
+                        <h2 class="section-title">Price Range</h2>
+                        <div class="form-group">
+                            <label class="form-label" for="price-from">From</label>
+                            <input 
+                                type="number" 
+                                id="price-from"
+                                name="price_from" 
+                                class="form-input" 
+                                value="{{ price_from }}"
+                            >
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="price-to">To</label>
+                            <input 
+                                type="number" 
+                                id="price-to"
+                                name="price_to" 
+                                class="form-input" 
+                                value="{{ price_to }}"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Sorting Section -->
+                    <div class="form-section">
+                        <h2 class="section-title">Sort By</h2>
+                        <div class="form-group">
+                            <select name="sorting" class="form-select">
+                                <option value="-date_added"{% if sorting == '-date_added' %} selected{% endif %}>
+                                    Newest First
+                                </option>
+                                <option value="price"{% if sorting == 'price' %} selected{% endif %}>
+                                    Price: Low to High
+                                </option>
+                                <option value="-price"{% if sorting == '-price' %} selected{% endif %}>
+                                    Price: High to Low
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="form-actions">
+                    <button type="submit" class="submit-button">Apply Filters</button>
+                    <button type="button" class="cancel-button" @click="cancelAdvancedSearch">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>    
+    </div>
+
+    <!-- Product Grid -->
+    <div class="search-results">
+        {% with products as listproducts %}
+            {% include 'parts/product_list.html' %}
+        {% endwith %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/search.js' %}"></script>
+{% endblock %}

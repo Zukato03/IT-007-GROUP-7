@@ -1,0 +1,34 @@
+
+
+{% extends 'base.html' %}
+
+{% block title %}{{ sub_category.title }} | {% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/sub_categ.css' %}">
+
+<nav class="breadcrumb" aria-label="breadcrumbs">
+    <ul class="bc-list">
+        <li><a href="{% url 'frontpage' %}">Home</a></li>
+        <li><a href="{% url 'main_category_detail' category.slug %}">{{ category.title }}</a></li>
+        <li class="is-active"><a href="{% url 'sub_category_detail' sub_category.slug %}">{{ sub_category.title }}</a></li>
+    </ul>
+</nav>
+
+<div class="category-container">
+    <h1 class="title">{{ sub_category.title }}</h1>
+
+    {% if sub_category.products.count %}
+        {% with products as listproducts %}
+            {% include 'parts/product_list.html' %}
+        {% endwith %}
+    {% else %}
+        <div class="empty-state">
+            <p>No products at this moment.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+# Python dependencies
+*.py[cod]
+__pycache__/
+*.pyo
+*.pyd
+*.pyc
+
+# Virtual environment folder (if you're using a virtual environment)
+venv/
+env/
+
+# Pip dependency file (ignore if you don't want to track `requirements.txt`)
+# Uncomment the line below if you want to exclude it
+requirements.txt
+
+# Pipenv dependencies
+Pipfile
+Pipfile.lock
+
+# Ignore Poetry dependency files
+poetry.lock
+pyproject.toml
+
+.DS_Store

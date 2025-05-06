@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Welcome | {% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/frontpage.css' %}">
+
+<div class="home-container">
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <video autoplay muted loop playsinline class="hero-video">
+            <source src="{% static 'videos/ad-siklo.mp4' %}" type="video/mp4" />
+        </video>
+        <div class="hero-content">
+            <h1 class="hero-title">Discover Our Collection</h1>
+            <p class="hero-subtitle">Explore our carefully curated products</p>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="section-container">
+        <div class="section-header">
+            <h2 class="section-title">Featured Products</h2>
+            <div class="section-line"></div>
+        </div>
+        {% with products as listproducts %}
+            {% include 'parts/product_list.html' %}
+        {% endwith %}
+    </section>
+
+    <!-- Featured Categories -->
+    <section class="section-container featured-categories">
+        {% for sub_category in featured_categories %}
+            <div class="category-section">
+                <div class="section-header">
+                    <h2 class="section-title">{{ sub_category.title }}</h2>
+                    <div class="section-line"></div>
+                    <a href="{% url 'sub_category_detail' sub_category.slug %}" class="view-all">View All</a>
+                </div>
+                {% with sub_category.products.all|slice:":4" as listproducts %}
+                    {% include 'parts/product_list.html' %}
+                {% endwith %}
+            </div>
+        {% endfor %}
+    </section>
+
+    <!-- Popular Products -->
+    <section class="section-container">
+        <div class="section-header">
+            <h2 class="section-title">Popular Products</h2>
+            <div class="section-line"></div>
+        </div>
+        {% with popular_products as listproducts %}
+            {% include 'parts/product_list.html' %}
+        {% endwith %}
+    </section>
+
+    <!-- Recently Viewed -->
+    <section class="section-container">
+        <div class="section-header">
+            <h2 class="section-title">Recently Viewed</h2>
+            <div class="section-line"></div>
+        </div>
+        {% with recently_viewed_products as listproducts %}
+            {% include 'parts/product_list.html' %}
+        {% endwith %}
+    </section>
+</div>
+{% endblock %}

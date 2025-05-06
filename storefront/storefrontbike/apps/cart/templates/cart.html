@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Cart |{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+
+<div id="cartapp" class="cart-container">
+  <h1 class="title">Shopping Cart</h1>
+  
+  <div v-if="products.length > 0">
+    <div class="table-container">
+      <table class="table">
+        <thead>
+          <tr class="table-header">
+            <th></th>
+            <th>Item</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="product in products" :key="product.id">
+            <td>
+              <input type="checkbox" v-model="selectedProducts" :value="product.id">
+            </td>
+            <td>
+              <figure class="image is-48x48">
+                <img :src="product.product_thumbnail" :alt="product.title">
+              </figure>
+            </td>
+            <td>
+              <a :href="product.url" style="color: var(--accent-color)">[[ product.title ]]</a>
+            </td>
+            <td>
+              <div class="quantity-control">
+                <button class="quantity-button" @click="decrementQuantity(product.id, product.quantity, product.price)">-</button>
+                <span>[[ product.quantity ]]</span>
+                <button class="quantity-button" @click="incrementQuantity(product.id, product.quantity, product.price)">+</button>
+              </div>
+            </td>
+            <td>[[ product.total_price ]]</td>
+            <td><button @click="removeFromCart(product.id)" class="button is-danger">Remove</button></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3" style ="color: var(--text-color);">Total Items:</td>
+            <td style ="color: var(--text-color);"> [[ numItems ]]</td>
+            <td colspan="2" style ="color: var(--text-color);">Total Cost: [[ totalCost.toFixed(2) ]]</td>
+          </tr>
+          <tr v-if="coupon_value">
+            <td colspan="4">Total Cost with Coupon:</td>
+            <td colspan="2">[[ totalCostWithCoupon ]]</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    {% if not request.user.is_authenticated %}
+      <div class="notification" style="margin-top: 2rem;">
+        <p>You need to login or signup to purchase! <a href="{% url 'login' %}" style="color: var(--accent-color)">Log In</a> / <a href="{% url 'signup' %}" style="color: var(--accent-color)">Sign Up</a></p>
+      </div>
+    {% else %}
+      <div class="coupon-section">
+        <h2 class="subtitle">Apply Coupon</h2>
+        <div class="coupon-input">
+          <input type="text" v-model="coupon_code" class="input" placeholder="Enter coupon code">
+          <button @click="applyCoupon()" class="button is-primary">Apply</button>
+        </div>
+        <div class="notification is-warning" v-if="showCouponCodeError">
+          <p>The coupon code is not valid.</p>
+        </div>
+      </div>
+
+      <form v-on:submit.prevent="buy()" class="checkout-section">
+        <h2 class="subtitle">Contact Information</h2>
+        <div class="form-grid">
+          <div class="form-column">
+            <div class="field">
+              <label>First Name</label>
+              <input class="input" type="text" v-model="first_name">
+            </div>
+            <div class="field">
+              <label>Last Name</label>
+              <input class="input" type="text" v-model="last_name">
+            </div>
+            <div class="field">
+              <label>Email</label>
+              <input class="input" type="email" v-model="email">
+            </div>
+          </div>
+          <div class="form-column">
+            <div class="field">
+              <label>Contact Number</label>
+              <input class="input" type="tel" v-model="contact_number">
+            </div>
+            <div class="field">
+              <label>Address</label>
+              <input class="input" type="text" v-model="address">
+            </div>
+            <div class="field">
+              <label>Zip Code</label>
+              <input class="input" type="text" v-model="zip_code">
+            </div>
+          </div>
+        </div>
+        
+        <div class="checkout-buttons" style="margin-top: 2rem;">
+          <button @click="buy('stripe')" class="button is-primary" style="margin-right: 1rem;">Check Out with Stripe</button>
+        </div>
+      </form>
+    {% endif %}
+  </div>
+
+  <p v-else>Your cart is empty!</p>
+
+  <div v-if="errors.length > 0">
+    <div class="error-message" v-for="error in errors">
+      <p>[[ error ]]</p>
+    </div>
+  </div>
+</div>
+
+<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+{% endblock %}
+
+{% block scripts %}
+<script type="application/javascript" src="https://js.stripe.com/v3/"></script>
+<script>
+  var userData = {
+    first_name: "{{ first_name }}",
+    last_name: "{{ last_name }}",
+    email: "{{ email }}",
+    contact_number: "{{ contact_number }}",
+    address: "{{ address }}",
+    zip_code: "{{ zip_code }}"
+  };
+  var stripePubKey = "{{ pub_key }}";
+</script>
+<script src="{% static 'js/cart.js' %}"></script>
+{% endblock %}

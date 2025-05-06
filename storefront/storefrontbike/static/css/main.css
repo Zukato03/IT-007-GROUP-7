@@ -1,0 +1,43 @@
+.newsletter-wrapper {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: #535353;
+}
+
+.newsletter-wrapper .field.has-addons {
+    justify-content: center;
+}
+
+.newsletter-wrapper .notification {
+    margin-top: 20px;
+}
+
+.notification.space-below {
+    margin-bottom: 20px;
+}
+
+
+.navbar-dropdown {
+    display: none; 
+}
+
+
+.has-dropdown:hover > .navbar-dropdown {
+    display: block;
+}
+
+.navbar-item.has-dropdown:hover > .navbar-dropdown {
+    display: block; 
+    position: absolute; 
+    left: 0; 
+    top: 100%; 
+    z-index: 10;
+}
+
+
+.navbar-item.has-dropdown > .navbar-dropdown > .navbar-item:hover > .navbar-dropdown {
+    display: block;
+}
+
+
+

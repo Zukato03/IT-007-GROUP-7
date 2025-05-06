@@ -1,0 +1,160 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/product_list.css' %}">
+
+<div class="product-grid">
+    {% for p in listproducts %}
+    <div class="product-card-wrapper">
+        <div class="product-card">
+            <div class="card-image-wrapper">
+                <figure class="image-container">
+                    <img src="{{ p.get_product_thumbnail }}" alt="{{ product.title }}">
+                </figure>
+            </div>
+            <div class="card-content">
+                <div class="product-info">
+                    <h3 class="product-title">{{p.title }}</h3>
+                    <p class="product-price">&#8369; {{ p.price }}</p>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'product_detail' p.sub_category.slug p.slug %}" class="view-button">View</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+<style>
+  /* Product Grid Container */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Product Card */
+.product-card-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.product-card {
+    background: #ffffff;
+    border: 1px transparent;
+    border-radius: 4px;
+    width: 100%;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border: 2px solid #68d7ed;
+    border-radius: 4px;
+}
+
+/* Image Container */
+.card-image-wrapper {
+    position: relative;
+    padding-top: 100%; /* 1:1 Aspect Ratio */
+    overflow: hidden;
+}
+
+.image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Card Content */
+.card-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+}
+
+.product-info {
+    text-align: center;
+}
+
+.product-title {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 25px;
+    font-weight: 500;
+    color: #333333;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.4;
+}
+
+.product-price {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 1rem;
+    color: #666666;
+    margin: 0;
+}
+
+/* Card Footer */
+.card-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #e5e5e5;
+}
+
+.view-button {
+    display: inline-block;
+    background-color: #68d7ed;
+    color: white;
+    padding: 0.75rem 2rem;
+    text-decoration: none;
+    border-radius: 4px;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.875rem;
+    transition: background-color 0.2s ease;
+    width: 100%;
+    text-align: center;
+    margin-left: -1px;
+
+}
+
+.view-button:hover {
+    background-color: #4bc5df;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 1.5rem;
+        padding: 1.5rem;
+    }
+    
+    .card-content {
+        padding: 1rem;
+    }
+    
+    .card-footer {
+        padding: 1rem;
+    }
+}
+</style>

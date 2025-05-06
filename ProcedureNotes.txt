@@ -1,0 +1,578 @@
+Virtual Environment Location
+
+C:\Users\ASUS\.virtualenvs\storefront-i30lTlvo
+
+Python (internet)
+pipenv install django
+
+A. Commands to create a django project and integrate its features:
+test 123
+Folder name used: storefront
+
+1. mkdir <foldername> : Creating a folder for your django project
+2. cd <foldername> : Accessing the folder stated
+3. pipenv install django : Installing django inside the virtual engine of the foldername
+    NOTE: Remember to save the location of the Virtual Environment Location
+4. ls - To access the files/folder inside of the folder
+5. pipenv shell : Launching the powershell in virtual Environment
+6. django-admin : Viewing the commands available when using django
+7. django-admin startproject <foldername> - Creating the django project. Used storefront
+8. cd <foldername>  - Accessing the folder stated
+9. ls - To see if python and related files are alread imported inside the folder
+10. ls <foldername> - (Same function with number 9)
+11. python manage.py makemigrations - Initializing the migration of the database and other django features
+12. python manage.py migrate - Importing all related features of django
+13. ls - Making sure that all related files are already imported
+14. python manage.py createsuperuser : Use to create a superuser of your project
+    Username: <any user name, but in this project, I used admin>
+    Email Address: <any email address would do but in this one, I use "adminjosh@gmail.com">
+    Password: ASqw12KLop90 <Note: any password will do>
+15. mkdir <foldername> : Adding another folder to facilitate your apps. In this one, I used "apps" as the folder name
+16. ls - Accessing its contents
+17. mkdir <foldername>/<foldername> : Creating another folder for the core of the website. In this one, I used mkdir apps/core
+18. python manage.py startapp <foldername> <foldername>/<foldername> : Used to import django files inside the folder. In this one, I used "python manage.py startapp core apps/core"
+19. ls : Accessing its contents
+20. ls <foldername>/<foldername> : Accessing the content of the specified file directory. I used "apps/core"
+21. mkdir <foldername>/<foldername>/<foldername> : Creating another folder for the template. I used "apps/core/templates"
+
+
+B. Setting up the HTML (Frontpage and Contact):
+1. In the templates folder, we set up the base.html and connects it to django using 
+            {% block content %}
+            {% endblock %}
+2. Created the frontpage.html to call the base.html
+3. The view.py was used to view the html. 
+4. Then, import the frontpage.html at urls.py (Located in storefront folder). Additionally, add it in the urlpatters list.
+5. After that, go to settings.py (Located in storefront folder) to add the app.store path in "Installed_apps = []"
+6. DEBUGGING: In your settings.py file, use "apps.core.apps.CoreConfig" instead of just "apps.core". And in your apps/core/apps.py file, rename "core" to "apps.core".
+7. Try to explore the current state of the project by typing "python manage.py runserver". To access the admin, just type "/admin"
+    NOTE: make sure that the script will be run on its directory
+8. Created the contact.html. Add the import of contact in urls.html
+9. Use Django's syntax to use href for contact.html in base.html
+
+NOTE: END RESULT OF base.html, frontpage.html and contact.html are available in CodeNotes.txt:
+
+
+C. Category and Products view html
+1. mkdir <foldername>/<foldername> : Make a directory for the store (I used mkdir apps/store)
+2. python manage.py startapp <foldername> <foldername>/<foldername> : Importing django files in the stated path. Used "store apps/store"
+3. Adding the store folder in settings.py
+4. Go to the models.py in store folder and create the databases. The databases we created at this point are title and slugs. I created the MainCategory for the database.
+5. python manage.py makemigrations : Used to inform that there are changes for the database
+6. DEBUGGING: In your settings.py file, use "apps.store.apps.StoreConfig" instead of just "apps.store". And in your apps/store/apps.py file, rename "store" to "apps.store"
+7. Run the makemigrations again
+8. python manage.py migrate : Use to migrate changes
+9. In store/admin.py, import the main category class so that changes will appear in the html
+9. python manage.py runserver : Check if the database is migrated
+10. Go to the admin site and add some main categories.
+11. To show the name of the main categories make a function to view it in store/admin.py
+12. Since "Main Categorys" is shown in the admin, we can have another function in store/admin.py to correct it
+13. Make another class in store/admin.py to add sub categories. Make appropriate sets of items for the sub categories.
+14. Import the Main Category class inside the sub category class.
+15. Now, run the scripts "python manage.py makemigrations" and "python manage.py migrate" to inform and save changes.
+16. Import the Sub category in store/admin.py
+17. Follow steps 13 - 16 to create the products.
+18. To view the products, go to core/views.py and import the products.
+19. Call the products inside the frontpage function and make a dictionary for it. 
+20. Make a for loop inside frontpage.html to view the products. Check if it is viewable already.
+21. If it is viewable, you can add some layout designs to improve its layout.
+22. For the product details, go to store/views.py and make some functions to view it.
+23. Then go to urls.py to import the changes in number 22.
+24. Create a folder name "templates" inside the store folder. Then create "product_detail.html" for viewing the details of the product.
+25. To view the main categories, create a python file inside the store folder. Name it context_processors.py.
+26. Code inside the context_processors.py to access its content in the database.
+27. Go to the settings.py. Inside the templates list, add the functions that you've creataed in number 26.
+28. Go to base.html to add the main categories in the navbar. Refresh the browser to see if it is viewable.
+
+NOTE: End result codes are available in code notes.
+
+D. Basic cart system and some changes in layout
+1. Adjust the contact location by creating a footer for it
+2. Create an about us html page. I copied the contents of contacts first and adjusting it based on the necessary details.
+3. After creating the about us page. Create a function inside the core/views.py to view it.
+4. Import about us page in urls.py.
+5. Adjust the footer so that about page can be accessed.
+6. I created another column in the database for main and sub category. I named it main_ordering and sub_ordering respectively. The purpose of it is to dynamically arrange the categories whatever you want.
+7. Use "python manage.py makemigrations" and "python manage.py migrate" to save changes
+8. Use ordering also for the products. Make it in accordance to the date added.
+9. When you run the "python manage.py makemigrations", the terminal will ask you two options. Select option 1 and type "timezone.now". Afterwards, run "python manage.py migrate"
+10. Add another product to see if the date_added is working.
+11. Work on the featured items. Show items in the front page that is featured only. Add another column in the database to handle that. TIP: use boolean
+12. Use "python manage.py makemigrations" and "python manage.py migrate" to save changes.
+13. Check the admin module to see if the changes were applied.
+14. Edit the core/views.py to view only featured products in frontpage.
+15. To make a functionality for cart, add a folder inside apps. Run the script "mkdir apps/cart" and "python manage.py startapp cart apps/cart"
+16. Go to settings.py and inside the installed apps list, add the cart folder.
+17. Create an html file for carts and import base.html. Add related html to this one.
+18. Add the carts in cart/views.py and in the urlpatterns in urls.py. Moreover, go to cart/apps.py and change the name variable to "apps.cart"
+19. Edit the base.html to make the cart.html accessible.
+20. Change the <title> of every html file. it should be dynamic according to the page's title.
+
+NOTE: End result code in CodeNotes.txt
+
+E. Cart system and vue.js:
+NOTE: The codes are explained with comments and you can refer it inside the CodeNotes.txt
+1. Rename cart() to cart_detail. Edit the cart/views and urls
+2. Add the following lines of code inside the settings.py for the cart system.
+    SESSION_COOKIE_AGE = 604800 
+    CART_SESSION_ID = 'cart'
+3. Create a file inside the cart folder and name it cart.py. This will handle the cart system.
+4. Inside the cart.py, create a class and its functionalities. (You may refer to CodeNotes.txt for references)
+5. To make it possible to add products to the cart, first we need to create a file inside the store folder. Name it api.py. (You may refer to CodeNotes.txt for references)
+6. Import the changes in urls.py
+7. Add vue.js in base.html and put it inside the product_detail.html
+8. DEBUGGING: ModuleNotFoundError: No module named 'cart' (Refer to DebuggingNotes.txt for fixing it)
+9. Continue to edit product_detail.html for viewing the cart. (Refer to CodeNotes.txt for references)
+10. Make the functionality of the cart.html by adding its "add to cart" features (Refer to CodeNotes.txt for references)
+11. Make a functionality to remove items in the cart.
+
+F. Continuation of Cart system functionality (You may refer to the codes in CodeNotes.txt)
+1. Change the content of the cart.html to view the quantity of products in the cart.
+2. Check if the changes were applied.
+3. Change the variable of the item price from int to float in the cart.py
+4. Fix the remove item button in cart.html
+5. Increment or decrement the number of quantity in the items according to the user's wishes. Use buttons to deal with it.
+6. Add a feature to handle it in the script part of cart.html and cart.py
+7. Update the cart/views.py and cart.html so that if there are changes, you dont need to reload the screen.
+8. Import vuex in base.html. Use this link: https://unpkg.com/vuex@4.1.0/dist/vuex.global.js
+9. Add a cart button and dynamically update it once the user click to increment the items.
+
+G. Product Pictures (May refer to CodeNotes.txt)
+1. Download Pillow in terminal. Use "pip install pillow"
+2. Edit the store/models.py to import and add picture to the database. Run makemigrations, migrate, and runserver in the terminal to save changes.
+3. Make a function inside the models.py to handle images
+4. Additionally, make a function to save the images.
+5. Make a designated folder for uploaded images.
+6. Go to admin module and check if you can now upload images.
+7. If that is ok, go to the frontpage.html for viewing the uploaded images.
+8. Go to settings.py and add a variable to fetch the image from the database. import first the os and copy paste the following lines of code:\
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'images/')
+    NOTE: images is the folder name that I used. So change it if it is not the name of designated folder for upload of images
+    NOTE: The ff. lines of code should be located after the STATIC_URL variable.
+9. Now, go to urls.py. Copy paste the following code that needs importing:
+    from django.conf import settings
+    from django.conf.urls.static import static
+10. Afterwards, copy paste the ff. lines of codes after the urlpatterns list:
+    if settings.DEBUG:
+        urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+11. Check if the pictures are now viewable.
+12. Add the pictures also in the product_details.html
+13. Check if the pictures are now viewable.
+14. Add total price for the whole cart inside the cart.py class and cart.html.
+15. Do the same with the total quantity.
+16. Check if the changes are replicated.
+17. Make another folder for the css file. The hierarchy of the folder is the same as the apps folder. Name the folder "static"
+18. Make a simple css code just to check if it is imported correctly.
+19. Go to settings.py to import css file. Copy paste the following code:
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static')
+    ]
+    NOTE: Put the ff. lines of code after the STATIC_URL variable
+20. Import the css files to the base.html. Copy paste the ff. lines of code and read the instructions carefully.
+    on line 1 of base.html file, copy paste the ff. code:
+    {% load static %}
+    on the line after the link of styles, copy paste the ff. code:
+    <link rel="stylesheet" href="{% static 'main.css '%}">
+21. Check if the css is working.
+22. Make another directory for the functionality of orders. run the ff. scripts in the terminal:
+    - mkdir apps/order
+    - python manage.py startapp order apps/order
+    - python manage.py runserver
+23. Edit the order/apps.py. Set the name variable to 'apps.order'
+24. Setup the database of orders in the order/models.py
+25. Run the ff. in the terminal to save changes.
+    - python manage.py makemigrations
+    - python manage.py migrate
+26. Register the models in order/admin.py
+27. Check on the admin module if the changes were replicated.
+28. Add a function to decrement quantity in the cart. Do it like the procedure in increment.
+    TIP: you can copy paste the function of increment. Just change the sign to '-'
+29. Update the total price dynamically when the users increment or decrement items. Go to base.html and cart.html to make it happen.
+30. Check if the changes are replicated.
+
+H. Order System
+1. Create a context_processor.py file inside the cart folder. Create a dictionary for handling files.
+2. Go to settings.py to add the new file inside the templates list
+3. Create a form to collect orders in the cart.html.
+4. Now, go to api.py to handle checkouts.
+5. Go to order folder and create a file name "utils.py"
+6. Copy paste the following lines of codes for importing:
+    import datetime
+    import os
+
+    from random import randint
+
+    from apps.cart import Cart
+
+    from apps.order.models import Order, OrderItem
+7. Make a functionality to send data to the database and import it in api.py.
+8. Before testing it, go to cart.py to emptying the cart after finishing ordering.
+9. Save the path to the urls.py
+10. Check if the order details are sent to the database.
+11. If it is working, reload the cart.html to see if the cart will be empty.
+12. Create an account on stripe. (I used my TIP gmail.)
+13. Make your account test data and go to delopers -> API keys -> Publishable keys. Copy and paste it to the settings.py
+14. Do the same with hidden keys.
+15. Install stripe by running the script to the terminal: "pip install stripe"
+16. Restart the server.
+17. Fix the bug quantity below 1 by editing some functionalities in cart.py and cart.html
+
+I. Integrating stripe
+1. Add a success.html file inside the cart folder. Code its contents.
+2. Go to cart/views.py to import success.html.
+3. Import success in urls.py
+4. Run the server to see if the success.html is viewable.
+5. Afterwards, create a token from stripe in the api.py. First, import the ff. lines of codes:
+    import stripe
+
+    from django.conf import settings
+6. Create a function for handling information to stripe.
+7. Afterwards, import it in the urls.py.
+8. Add a functionality to process the checkout in the cart.html. Include form validation if the user inputs missing information.
+9. Run the server to test it.
+10. Update the models.py in order folder. Add a database column for payment intent.
+11. Go to api.py to update the checkout.
+12. Create "webhook.py" inside the cart folder. Copy paste the following lines of codes:
+    import json
+    import stripe
+
+    from django.conf import settings
+    from django.http import HttpResponse
+    from django.views.decorators.csrf import csrf_exempt
+
+    from .cart import Cart
+13. Download the stripe CLI with this link and follow its instructions:
+    https://docs.stripe.com/stripe-cli
+    CMD: set PATH=%PATH%;D:\Downloads\Stripe
+         stripe login
+         stripe listen --forward-to localhost:8000/hooks/
+14. Import hooks in the urls.py
+15. Test and see if the payment_intent, paid_amount, and paid are updated in the database.
+16. In the cart/views.py, try to make a function to remove the contents of the cart after a successful payment.
+
+
+J. Coupon
+1. Make a directory inside the apps. Name it coupon and import django. 
+    Run the ff. scripts:  "mkdir apps/coupon" & python manage.py startapp coupon apps/coupon
+2. Make a database regarding coupons.
+3. Edit the apps.py. Change the name variable to 'apps.coupon' of coupons and register it in settings.py
+4. Make migrations and migrate the database.
+5. Register you coupons in the coupon/admin.py
+6. Create a new file inside the coupon folder. Name it api.py to handle coupons.
+7. Register coupon/api.py to the urls.py
+8. Update the order/models.py to add coupons.
+9. Make migrations and migrate the database.
+10. Edit the cart.html to make the coupons available.
+11. Go to store/api.py to integrate coupons.
+12. I updated the order/models.py, order/api.py, and the webhook.py to fix some bugs.
+13. Remove a button in the cart.html. One should work only to stripe checkout.
+
+
+K. Admin interface and some additional fixes:
+1. Add a picture handling for sub_categories. Update the store/models.py and the main_category.html.
+2. Upload a picture in the admin module.
+3. Refresh the server and check if the pictures are viewable.
+4. Edit the html files of sub_category_detail.html and the main_category_detail.html.
+5. Show a message when you add a product to the cart. Edit it in product_detail.html.
+6. Edit the order/models.py. The purpose of it is to track shipping.
+7. Make migrations and migrate it.
+8. Go to order/admin.py to import the changes. Copy and paste the ff. code for imports.
+    import datetime
+
+    from django.urls import reverse
+9. Make a functionality for getting the order details to be viewd in the admin module.
+
+
+L. Search functionality and other fixes
+1. Go to base.html to make the button responsive for mobile use.
+2. Moreover, create a search functionality in it. 
+3. Edit the store/views.py to add a function to get the searched item from the database.
+4. Create a template inside the store, name it search.html.
+5. Make a functionality about it.
+6. Import search views to urls.py
+7. Try to check if the search is working.
+8. Import an image (thumbnail) to the cart. When the user ordered a product, a thumbnail should also appear in that. Do it in cart.html.
+9. Edit the cart/views.py to show it.
+10. Add more functionalities in cart.html (Like for example, the user can redirect to the product details if they click the product name)
+11. Edit the cart/views.py to redirect the clicked product name in cart.
+12. Test to see if it is working.
+13. Go to settings.py to activate sitemaps. Copy paste the ff inside the Installed_apps list:
+    'django.contrib.sitemaps',
+14. Restart the server.
+15. Create a new python file inside the main folder (Same hierarchy with settings.py). Name it sitemaps.py. Create a functionality of it.
+16. Import sitemaps.py to the urls.py.
+17. Update the store/models.py to activate sitemaps.
+18. Copy paste the ff:
+    http://127.0.0.1:8000/sitemap.xml
+
+
+M. Inventory System and add more images in a product.
+1. Create a new class in store/models.py to handle more images in a product
+2. Add the new model in the store/admin.py
+3. Make migrations and migrate
+4. Try to add more images in the admin module.
+5. Go to product_detail.html to view more product images.
+6. Create a json string in the store/views.py to help the product_detail view the images.
+7. Add a new variable in the product class inside the store/models.py to handle iventory
+8. Make migrations and migrate
+9. Go to webhook.py to update the inventory once the order was completed.
+10. Go to cart.py. Make a function to check if the product is still available base on the inventory.
+11. Go to store/view.py to view if the product is inside the cart.
+12. Edit the product_detail.html to handle frontend checking of the inventory of the product.
+13. Go to cart/views.py. Edit to alert the customer if they add a quantity of product that supasses the amount in the inventory.
+14. Change the function in the cart.html to handle the changes of the inventory of the product.
+15. Check the cart if it is working now.
+
+
+N. Email confirmation 
+1. Go to core/views.py. Create a dummy view to see the email content.
+2. Import the changes in the urls.py
+3. Create a new html file inside the templates. Name it order_confirmation.html. It will be the view of the email's content.
+4. Edit the core/views.py to include order details.
+5. Create a python file. It has the same hierarchy as the settings.py. Name it smtp_server.py. It will serve as the server for the emails.
+6. In the terminal, type the ff. lines of scripts:
+    pip install aiosmtpd
+    netstat -ano | Select-String "1025"
+    python smtp_server.py
+7. Go to settings.py to add email host and email user. Copy paste the following code:
+    EMAIL_HOST = 'localhost'
+    EMAIL_PORT = 1025
+8. In the webhook.py to import send_mail. Add a functionality to it regarding it. Copy paste the ff imports to be called:
+    from django.core.mail import send_mail
+    from django.template.loader import render_to_string
+9. Create a new html file inside the core/templates for order sent. 
+10. Delete the order_confirmation in the urls and the core/views.py.
+11. In order/admin.py copy paste the ff:
+    from django.core.mail import send_mail
+    from django.template.loader import render_to_string.
+12. Make a transaction's status to shipped to in admin module. Test if an email is sent.
+
+O. User accounts.
+1. Make a directory in the users. Run the ff. scripts in the terminal:
+    mkdir apps/userprofile
+    python manage.py startapp userprofile apps/userprofile
+2. Edit the userprofile/apps.py and register the new directory in settings.py.
+3. Add a new file in the userprofile folder. Name it forms.py. Write functionalities to handle users.
+4. Import forms.py in the userprofile/views.py
+5. Create a folder inside userprofile. Name it templates.
+6. Inside the templates, create a html file. name it signup.html. Make a frontend code of it.
+7. Import the views in urls.py
+8. Test to see the signup in your browser.
+9. Go to base.html to add a sign out and login button.
+10. Create an html for login in userprofile/templates.
+11. Go to settings and copy paste the ff codes:
+    LOGIN_URL = 'login'
+    LOGIN_REDIRECT_URL = 'cart'
+    LOGOUT_REDIRECT_URL = 'frontpage'
+12. Edit the functionality of the cart.html. Do not allow users who are not logged in to add carts.
+13. Edit the cart/views.py for user handling.
+14. Edit the orders/model.py for user handling.
+15. Edit the utils.py for user handling.
+16. Rename the log out button to my accounts. (Log out will be used inside my account)
+16. Add another view for "my accounts" functionality in userprofile/views.py.
+17. Create a new html for myaccounts. Put it inside the userprofile/templates. (Add features like for example, view account and order information history, edit user details)
+18. Test to see if the functions are working.
+
+P. Product variants
+1. Go to store/models.py to add product variants in the database.
+2. Make migrations, migrate, and restart the server.
+3. Check in the admin module if you can add a product variant.
+4. Check in the user's end to see if the product variant is viewable.
+5. Edit the store/views.py to adapt the views to the changes made.
+6. Moreover, edit the slug of the product_detail in the urls.py to adapt to the changes (the view button first).
+7. Edit the sub_category_detail.html, frontpage.html and the search.html for changes. (Its purpose is to redirect the child product to parent product)
+8. Edit the product_detail.html to add the child product in there.
+9. Moreover, edit the cart/views.py to adapt to the changes in the urls.py earlier.
+10. Open the cart.html to edit the checkout forms.
+11. Edited the order/models.py, api.py, utils.py for changes in the database. (removed place).
+12. Make the contact information and the apply coupon prettier using html in cart.html.
+13. Add a functionality of the apply coupon. Show an error message if the coupon typed is not a valid coupon.
+14. Hide the coupon and the contact information if the user is not logged in.
+15. Test the website if the changes are working.
+
+Q. Improved visual forms of login and signup.
+1. Open login.html. Add features that will improve its visuals.
+2. Also, improve the forms in the signup.html. You can change it by changing some form in its forms.py.
+3. Go to main.css to improve the design of the forms.
+4. Edit the views.py to adapt to the changes.
+
+R. Newsletters
+1. Run the ff lines of scripts to create a new app. It is responsible for handling newsletters.
+    mkdir apps/newsletter
+    python manage.py startapp newsletter apps/newsletter
+2. Edit the name variable in the newsletter/apps.py to apps.newsletter.
+3. Add the newsletter to the installed_apps list in settings.py
+4. Edit the newsletter/models.py to add a database table for subscribers.
+5. Add the new database table in the newsletter/admin.py.
+6. Run makemigrations, migrate, and restart the server in the terminal.
+7. Check the admin module if the subscribers are viewable
+8. In the core folder, go to the templates folder and create a folder inside it. Name it parts.
+9. Inside the parts folder, create an html file. Name it newsletter.html
+10. Try to add a simple text in the newsletter.html. Then add the new html file in the base.html.
+11. Refresh the html page to see if the simple text is viewable.
+12. Go to main.css to add some designs for newsletter.
+13. Create a javascript functionality regarding the submission of email in the newsletter part.
+14. Create a new file inside the newsletter folder. Name it api.py. Its function is to get the data from the email textfield.
+15. Go to urls.py to add the newsletter api.
+16. Try to restart the server again and test if the changes are applied.
+
+S. Adding related products.
+1. Add the product price and its variant in the product_detail.html.
+2. Edit the store/views.py to have a function that gets the related products.
+3. Create a new folder in the store/templates. Inside of the folder, create a new html file. Name it "product_list".
+4. Code some html in product_list for its purpose. It is where the related products will be shown.
+5. Make the code in sub_category_detail.html cleaner.
+6. Do the same with frontpage.html. Make the code cleaner.
+7. Test the code to see the changes.
+
+T. Product Reviews
+1. Edit the store/models.py to add a new class for products review.
+2. Import the new class to the store/admin.py.
+3. Make migrations and migrate the changes in the database.
+4. Make some changes in product_detail.html to handle product reviews.
+5. Go to main.css for some changes in design.
+6. Edit the store/views.py to get the user input.
+7. Test the changes.
+
+U. Some changes in the my profile (additional password confirmation)
+1. Add password confirmation in the forms of myaccount.html.
+2. Edit the function inside the userprofile/views.py to adapt to the changes.
+3. Test to see if the changes are working or not.
+
+V. PDF receipts 
+1. Edit the store/models.py since there's a bug with regards of showing the product where reviews = 0.
+2. Also, if there are still no reviews, indicate in the stars part in product_detail.html that the product hasn't been reviewed.
+3. Run the following line of script in your terminal:
+    pip install --pre xhtml2pdf
+    NOTE: You may run this in the command prompt. Run as administrator to install.
+4. Restart the server.
+5. Create a folder inside the order folder. Then create an html file. Name it 'order_pdf'.
+6. Create a simple html structure to show the order details in the new html file.
+7. Go to order/views.py to make a function for the new functionality. 
+8. Go to urls to import the new functionality.
+9. Add a functionality where the admin can view and download the pdf. Update the order/admin.py.
+10. Test to see if you can download the pdf.
+11. Add some design in the order_pdf.html to make the pdf a little bit prettier.
+12. Make it possible to send the pdf to the user. Go to webhooks.py to make it happen.
+13. Test to see the changes.
+
+W. Changes in user profile
+1. In the userprofile/models.py, add a new fields to the user information.
+2. Import the updated model in the userprofile/admin.py.
+3. Make migrations and migrate the changes. Afterwards, restart the server.
+4. Go to forms.py to update the changes.
+5. Update the userprofile/views.py.
+6. Do the same in the signup.html
+7. Test to see if the changes are working.
+8. Go to myaccount.html to add the new fields to the user information.
+9. Try to text if the changes are working.
+10. Edit the userprofile/admin.py to add the new fields in the admin interface.
+11. Edit the cart/views.py and the cart.html to add the new fields in there.
+12. Try to transact and see if the changes are working.
+
+X. Some changes in the navbar, displaying categories, and creating featured categories
+1. Edited the base.html and store/views.py for a more organized way to show sub_categories.
+2. Changes are also applied in main_category_detail.html and sub_category_detail.html.
+3. Make a breadcrumbs starting from main_category_detail, sub_category_detail, and product_detail.html for easier navigation.
+4. Go to the store/models.py to edit the sub_category class. Add a field for the featured one.
+5. Update the database by making migrations and migrating it. Also, restart the server.
+6. Update the core/views.py to adapt to the changes.
+7. Change some codes in the frontpage.html to show the featured categories.
+8. Test to see if the featured categories are showing in the front page.
+
+Y. Advanced Search and Price Range
+1. Go to search.html to add a form with regards for advanced searching.
+2. Go to store/views.py to add a functionality for the advanced search.
+3. Test the results of the changes.
+
+Z. Popular products and Recently viewed:
+1. Add two new fields in the store/models.py that tracks the number of visits per product and the last time that the user visited it.
+2. Make migrations and migrate the new two fields.
+3. Restart the server.
+4. Go to store/views.py to increment the number of visits of a product and save the last visited product.
+5. Improve the way that the product images and thumbnail were generated in the store/models.py.
+6. Edit the product_list.html regarding the changes for the images.
+7. Go to core/views.py to add the popular products. Limit it to only four products.
+8. Edit the frontpage.html regarding the changes.
+9. Do the same with the last product visited.
+10. Test to see if the changes were replicated.
+
+{Unfinished}
+A1. Paymongo Integration
+1. Create an account in paymongo.
+2. Get the publishable and the secret keys and save it in settings.py.
+3. Copy and paste the ff. in the terminal:
+    python -m pip install requests
+4. Add the paymongo functionality in the order/api.py.
+5. Add the new function in the urls.py.
+6. Add a button in the cart.html to add another payment option in paymongo.
+
+
+B1. Making the code cleaner and some bug fixes:
+1. Create a reusable validation function for the cart.html.
+2. Make the payment function of stripe and the paymongo unified in the api.py.
+3. Refactor the codes in cart.html that handles the payment method.
+4. Edit the add_to_cart function in the store/api.py and to fix the bug when the user can still click add to cart even if it surpasses the number available.
+5. You may add a function in cart.py that tracks the inventory of products to assist the api.py.
+6. Change the product_detail.html to adapt to the changes.
+7. Edit the utils.py and the store/api.py to fix the bug relating to the price of the order since the discounted price is not been saved.
+
+C1. Transitioning cart to a database system:
+1. Create a model for the cart system in cart/models.py.
+2. Make migrations and migrate the new database.
+3. Edit the cart.py, cart.html, store/api.py, cart/views.py, base.html
+
+D1. Adding google account API as a login or signup.
+1. Install the ff. lines:
+    pip install social-auth-app-django
+2. Add the new installed app in the settings and urls.py
+3. Add a button for google login and signup in login.html and signup.html
+4. Make an account in google cloud api.
+5. Create a project and configure it based on your project requirements.
+6. Test and see if you can signup/login using google
+
+TASKS NEEDED TO FINISH:
+- Forget username and password functionality.
+- Transitioning all alert status to notifications using Bulma.
+- Changes in the overall layout of the website (HTML/CSS).
+- Use the commit function instead of reloading when the user updates their information.
+DONE- Adding google account API as a login or signup.
+- Paymongo bug (Reload looping)
+DONE- Adding checks in the cart so that the user can only buy what it has been checked in cart.html and store/api.py.
+DONE- Editing the order items in the admin since it only shows the price without the discounted coupon.
+- User can only gave product reviews when the order is delivered.
+- Showing the customer details in the order history.
+- Unify some tables in the admin module
+- Change the format for the related variant of the products.
+DONE- Add a delivered order date in the order/admin.py and order/models.py.
+- Make the order history at the descending order (latest first)
+DONE- Button for advanced search
+- The purchased product is the only one to be removed in the cart instead of clearing all.
+- Fix the navbar for products. If the user hovers to the main category, it will show the sub category.
+- Add bike repair/maintenance service
+- If the user isn't logged in, the user cannot add a product to the cart
+
+
+
+DOCKER SCRIPTS:
+docker build -t siklomnlstore .
+docker run -p 8000:8000 siklomnlstor
+
+
+Catungal:
+set PATH=%PATH%;C:\Users\asus\Documents\stripe\stripe_1.21.11_windows_x86_64
+stripe listen --forward-to localhost:8000/hooks/
+
+
+
+
+
+
+
+
+
+
+
+
+

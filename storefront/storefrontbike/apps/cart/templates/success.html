@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Thank You{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="thank-you-message">
+            <h1 class="title">Thank You!</h1>
+            <p class="subtitle">Your order has been received and is being processed.</p>
+            <div class="message-box">
+                <p>We appreciate your business and will keep you updated as your order is processed.</p>
+                <p>We hope to serve you again soon!</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block styles %}
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 50px;
+            text-align: center;
+        }
+
+        .thank-you-message {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .title {
+            font-size: 3rem;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #6c757d;
+            margin-bottom: 30px;
+        }
+
+        .message-box {
+            font-size: 1.2rem;
+            color: #495057;
+            line-height: 1.6;
+        }
+
+        .message-box p {
+            margin: 10px 0;
+        }
+
+        /* Optional: Add a nice button for further actions */
+        .btn-primary {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
+{% endblock %}

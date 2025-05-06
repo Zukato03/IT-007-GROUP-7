@@ -1,0 +1,1 @@
+web gunicorn vue-django-website.wsgi:apllication --log-file -

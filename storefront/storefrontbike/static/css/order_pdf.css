@@ -1,0 +1,124 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+address {
+    font-style: normal;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+strong {
+    font-weight: bold;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    padding: 12px 15px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+table td {
+    font-size: 14px;
+}
+
+.product-name {
+    display: flex;
+    align-items: center;
+}
+
+.product-name img {
+    margin-right: 10px;
+    max-width: 40px;
+}
+
+.price, .total {
+    text-align: right;
+}
+
+tfoot td {
+    font-weight: bold;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.total-amount {
+    color: #e74c3c;
+    font-size: 16px;
+}
+
+footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 12px;
+    color: #777;
+}
+
+.invoice-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 
+body {
+    font-size: 14px;
+}
+
+tr.head td,
+tr.footer td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #f9f9f9;
+}
+
+tr.footer td {
+    font-size: 14px;
+}
+
+tr.item td {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    font-size: 14px;
+}
+*/

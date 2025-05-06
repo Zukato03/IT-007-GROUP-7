@@ -1,0 +1,188 @@
+body {
+  background-color: #f2f2f2; /* Light gray background for a clean, Swiss design look */
+  color: #000000; /* Dark text color for readability on light backgrounds */
+  font-family: Helvetica, Arial, sans-serif;
+  padding-top: 30px;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 20px;
+}
+
+.breadcrumb .bc-list {
+  display: flex;
+  gap: 1rem; /* Space between breadcrumb items */
+}
+
+.breadcrumb .bc-list a {
+  color: #000000; /* Black for a clean look */
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.breadcrumb .bc-list a:hover {
+  color: #888; /* Subtle color change on hover */
+}
+
+.breadcrumb .bc-list .is-active a {
+  color: #e6c407;
+  font-weight: 900;
+}
+
+/* Adding whitespace and spacing for readability */
+.breadcrumb .bc-list li {
+  list-style: none;
+  padding: 0.5rem 0;
+}
+
+/* Ensuring the breadcrumb section has ample whitespace */
+.breadcrumb {
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #b1adad;
+  margin-bottom: 2rem;
+}
+
+/* Category Section Container */
+.category-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Main Title */
+.title {
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333333;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.title::after {
+  content: "";
+  position: absolute;
+  bottom: -0.5rem;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background-color: #68d7ed;
+}
+
+/* Grid Layout */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 1rem 0;
+}
+
+/* Card Styles */
+.category-card {
+  background-color: #ffffff;
+  border: 2px solid #efefef;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.category-card:hover {
+  border-color: #68d7ed;
+  transform: translateY(-4px);
+  box-shadow: 0 4px 20px rgba(104, 215, 237, 0.15);
+}
+
+/* Card Image */
+.card-image-container {
+  position: relative;
+  width: 100%;
+  padding-top: 75%; /* 4:3 Aspect ratio */
+  overflow: hidden;
+}
+
+.card-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Card Content */
+.card-content {
+  padding: 1.5rem;
+  flex-grow: 1;
+}
+
+.category-title {
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333333;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Card Footer */
+.card-footer {
+  padding: 1rem;
+  background-color: #fafafa;
+  border-top: 2px solid #efefef;
+}
+
+.view-link {
+  display: inline-block;
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #68d7ed;
+  color: #ffffff;
+  text-decoration: none;
+  text-align: center;
+  font-weight: 600;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.view-link:hover {
+  background-color: #4bc5e0;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: #666666;
+  font-size: 1.1rem;
+  background-color: #fafafa;
+  border-radius: 8px;
+  border: 2px solid #efefef;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .category-container {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .grid-container {
+    gap: 1rem;
+  }
+}

@@ -1,0 +1,128 @@
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 0 2rem;
+  margin: 0 auto;
+}
+
+/* Card Wrapper to maintain aspect ratio */
+.product-card-wrapper {
+  width: 100%;
+  height: 100%;
+  margin-left: 0;
+}
+
+/* Product Card */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #f2f2f2;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Image Container with Fixed Aspect Ratio */
+.card-image-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* 1:1 Aspect Ratio */
+  overflow: hidden;
+}
+
+.image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* This ensures the image covers the area without distortion */
+  object-position: center;
+}
+
+/* Card Content */
+.card-content {
+  padding: 1rem;
+  flex-grow: 1;
+}
+
+.product-info {
+  text-align: center;
+}
+
+.product-title {
+  font-size: 30px;
+  color: #000000;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+  font-weight: bold;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 2.8em; /* 2 lines * 1.4 line-height */
+}
+
+.product-price {
+  font-size: 20px;
+  font-weight: 400;
+  color: #6c6c6c;
+  font-weight: bold;
+}
+
+/* Card Footer */
+.card-footer {
+  padding: 1rem;
+  text-align: center;
+  background-color: #f2f2f2;
+}
+
+.view-button {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  background-color: #68d7ed;
+  color: black;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  margin-left: 16vh;
+}
+
+.view-button:hover {
+  background-color: #93e6f6;
+}
+
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+
+  .product-title {
+    font-size: 1.1rem;
+  }
+
+  .product-price {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}

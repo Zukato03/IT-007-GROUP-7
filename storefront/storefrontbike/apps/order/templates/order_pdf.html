@@ -1,0 +1,162 @@
+{% load static %}
+
+<html>
+    <head>
+        <title>Invoice #{{ order.id }}</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #fff;
+                color: #333;
+                margin: 0;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+                color: #333;
+                margin-bottom: 20px;
+            }
+
+            h2 {
+                font-size: 18px;
+                color: #333;
+                margin-bottom: 15px;
+            }
+
+            p {
+                font-size: 14px;
+                line-height: 1.5;
+                margin-bottom: 10px;
+            }
+
+            address {
+                font-style: normal;
+                font-size: 14px;
+                margin-bottom: 20px;
+            }
+
+            strong {
+                font-weight: bold;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 20px;
+            }
+
+            table th, table td {
+                padding: 12px 15px;
+                text-align: left;
+                border: 1px solid #ddd;
+            }
+
+            table th {
+                background-color: #f4f4f4;
+                font-weight: bold;
+            }
+
+            table td {
+                font-size: 14px;
+            }
+
+            .product-name {
+                display: flex;
+                align-items: center;
+            }
+
+            .product-name img {
+                margin-right: 10px;
+                max-width: 40px;
+            }
+
+            .price, .total {
+                text-align: right;
+            }
+
+            tfoot td {
+                font-weight: bold;
+            }
+
+            .text-right {
+                text-align: right;
+            }
+
+            .total-amount {
+                color: #e74c3c;
+                font-size: 16px;
+            }
+
+            footer {
+                margin-top: 20px;
+                text-align: center;
+                font-size: 12px;
+                color: #777;
+            }
+
+            .invoice-wrapper {
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 20px;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="invoice-wrapper">
+            <header>
+                <h1>Invoice #{{ order.id }}</h1>
+                <p><strong>Shipping Address:</strong></p>
+                <address>
+                    {{ order.first_name }} {{ order.last_name }}<br>
+                    {{ order.address }}<br>
+                    {{ order.zip_code }}<br>
+                    {{ order.contact_number }}
+                </address>
+            </header>
+
+            <section class="product-list">
+                <h2>Products</h2>
+                <table cellpadding="0" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order.items.all %}
+                            <tr>
+                                <td class="product-name">
+                                    {% if item.product.product_thumbnail.url %}
+                                        <img src="http://127.0.0.1:8000{{ item.product.get_product_thumbnail }}" width="40" alt="{{ item.product.title }}">
+                                    {% endif %}
+                                    {{ item.product.title }}
+                                </td>
+                                <td class="price">{{ item.product.price|floatformat:2 }}</td>
+                                <td class="quantity">{{ item.product.quantity }}</td>
+                                <td class="total">{{ item.price|floatformat:2 }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" class="text-right"><strong>Total Amount:</strong></td>
+                            <td class="total-amount">{{ order.paid_amount|floatformat:2 }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </section>
+
+            <footer>
+                <p>Thank you for your purchase at <strong>Siklo MNL</strong>!</p>
+                <p>If you have any questions about your order, feel free to contact us.</p>
+            </footer>
+        </div>
+    </body>
+</html>

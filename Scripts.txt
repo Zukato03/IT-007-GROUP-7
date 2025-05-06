@@ -1,0 +1,18 @@
+PYTHON LIBRARIES NEEDED TO BE INSTALLED:
+
+Note: You must need to install python in your pc and it needs to be added in your environment variables before you can proceed.
+
+Before proceeding, you must have python pip to install the libraries. You may refer to this link to install it: https://www.geeksforgeeks.org/how-to-install-pip-on-windows/
+
+Run the ff. scripts in the cmd. Execute it one by one:
+1. pipenv install django
+2. pip install pillow
+3. pip install aiosmtpd
+4. pip install --pre xhtml2pdf
+5. python -m pip install requests
+6. pip install social-auth-app-django
+
+
+INSTALLATION OF STRIPE CLI STEPS:
+1. Refer to this link if you want to install stripe cli: https://docs.stripe.com/stripe-cli
+

@@ -1,0 +1,100 @@
+body {
+  background-color: #f2f2f2; /* Light gray background for a clean, Swiss design look */
+  color: #000000; /* Dark text color for readability on light backgrounds */
+  font-family: Helvetica, Arial, sans-serif;
+  padding-top: 30px;
+}
+
+.category-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Breadcrumb Navigation */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 20px;
+}
+
+.breadcrumb .bc-list {
+  display: flex;
+  gap: 1rem; /* Space between breadcrumb items */
+}
+
+.breadcrumb .bc-list a {
+  color: #000000; /* Black for a clean look */
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.breadcrumb .bc-list a:hover {
+  color: #888; /* Subtle color change on hover */
+}
+
+.breadcrumb .bc-list .is-active a {
+  color: #e6c407;
+  font-weight: 900;
+}
+
+/* Adding whitespace and spacing for readability */
+.breadcrumb .bc-list li {
+  list-style: none;
+  padding: 0.5rem 0;
+}
+
+/* Ensuring the breadcrumb section has ample whitespace */
+.breadcrumb {
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #b1adad;
+  margin-bottom: 2rem;
+}
+
+/* Page Title */
+.title {
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #333333;
+  margin: 0 0 2.5rem 0;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+}
+
+/* Empty State Message */
+.empty-state {
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 1rem;
+  color: #666666;
+  text-align: center;
+  padding: 4rem 0;
+  background: #f8f8f8;
+  border-radius: 4px;
+  margin: 2rem 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .category-container {
+    padding: 1.5rem;
+  }
+
+  .title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .breadcrumb {
+    margin-bottom: 1.5rem;
+  }
+
+  .breadcrumb li {
+    font-size: 0.8125rem;
+  }
+}

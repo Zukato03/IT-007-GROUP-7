@@ -1,0 +1,223 @@
+<div class="newsletter-section" id="newsletter-wrapper">
+    <div class="newsletter-container">
+        <div class="newsletter-content">
+            <span class="material-icons newsletter-icon">mail_outline</span>
+            <h2 class="newsletter-title">Subscribe to our newsletter</h2>
+            <p class="newsletter-description">Stay updated with our latest products and offers</p>
+
+            <form v-on:submit.prevent="onSubmit" class="newsletter-form">
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <input 
+                            type="email" 
+                            v-model="email" 
+                            name="email" 
+                            class="newsletter-input"
+                            placeholder="Enter your email address"
+                            :class="{ 'success': showSuccess }"
+                        >
+                        <button type="submit" class="newsletter-button">
+                            <span class="button-text">Subscribe</span>
+                            <span class="material-icons">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <transition name="fade">
+                <div class="success-message" v-if="showSuccess">
+                    <span class="material-icons">check_circle</span>
+                    <span>Successfully subscribed to our newsletter!</span>
+                </div>
+            </transition>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Swiss Design Dark Mode Newsletter Styles */
+    .newsletter-section {
+        background-color: #f2f2f2;
+        color: #000000;
+        padding: 4rem 2rem;
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+    
+    .newsletter-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: #f2f2f2;
+        border-radius: 4px;
+        padding: 3rem 2rem;
+        text-align: center;
+        border-left: 4px solid #68d7ed;
+    }
+    
+    .newsletter-icon {
+        font-size: 2.5rem;
+        color: #68d7ed;
+        margin-bottom: 1.5rem;
+    }
+    
+    .newsletter-title {
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        color: #000000;
+    }
+    
+    .newsletter-description {
+        color: #000000;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+    
+    .newsletter-form {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    
+    .input-group {
+        margin-bottom: 1rem;
+    }
+    
+    .input-wrapper {
+        display: flex;
+        gap: 0.5rem;
+        background-color: #f2f2f2;
+        padding: 0.5rem;
+        border-radius: 4px;
+        border: 1px solid #000000;
+    }
+    
+    .newsletter-input {
+        flex: 1;
+        background-color: transparent;
+        border: none;
+        color: #FFFFFF;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        outline: none;
+    }
+    
+    .newsletter-input::placeholder {
+        color: #000000;
+    }
+    
+    .newsletter-input:focus {
+        outline: none;
+    }
+    
+    .newsletter-input.success {
+        border-color: #68d7ed;
+    }
+    
+    .newsletter-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background-color: #68d7ed;
+        color: #000000;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 4px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    
+    .newsletter-button:hover {
+        background-color: #45808c;
+    }
+    
+    .button-text {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .success-message {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        color: #68d7ed;
+        margin-top: 1rem;
+        font-weight: 500;
+    }
+    
+    .success-message .material-icons {
+        font-size: 1.25rem;
+    }
+    
+    /* Fade Animation */
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity 0.3s ease;
+    }
+    .fade-enter, .fade-leave-to {
+        opacity: 0;
+    }
+    
+    /* Error State */
+    .input-wrapper.error {
+        border-color: #FF4444;
+    }
+    
+    @media (max-width: 640px) {
+        .input-wrapper {
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .newsletter-button {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+    </style>
+
+<script>
+    var newsletterapp = new Vue({
+        el: '#newsletter-wrapper',
+        data () {
+            return {
+                email: '',
+                showSuccess: false
+            }
+        },
+        methods: {
+            onSubmit() {
+                console.log('Submit')
+
+                fetch('/api/add_subscriber/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify({'email': this.email})
+                    })
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok ' + response.statusText);
+                        }
+                        return response.json();
+                    })
+                    .then((data) => {
+                        console.log(data)
+
+                        this.showSuccess = true
+                        this.email = ''
+                    })
+                    .catch(function(error) {
+                        console.error('Error:', error);
+                        this.showSuccess = false
+                        alert('There was an issue with the newsletter process.');
+                    });
+            }
+        }
+    })
+</script>

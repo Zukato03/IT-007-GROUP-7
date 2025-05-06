@@ -1,0 +1,300 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{ product.title }} | {% endblock %}
+
+{% block content %}
+
+    <link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-icons@latest/iconfont/material-icons.css">
+
+
+
+    <div id="productapp">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ul class="bc-list">
+                <li><a href="{% url 'frontpage' %}">Home</a></li>
+                <li><a href="{% url 'main_category_detail' category.slug %}">{{ category.title }}</a></li>
+                <li><a href="{% url 'sub_category_detail' sub_category.slug %}">{{ sub_category.title }}</a></li>
+                <li class="is-active"><a href="{% url 'product_detail' category.slug product.slug %}">{{ product.title }}</a></li>
+            </ul>
+        </nav>
+
+        <div class="columns">
+            <div class="column_content">
+                <figure class="image is-3by3">
+                    <img class="main_image" :src ="mainImage">
+                </figure>
+            </div>
+        </div>
+
+        {% if product.product_image.all %}
+            <hr>
+            <div class="columns">
+                <div class="column is-2" v-for="image in images">
+                    <figure class="image is-100x100">
+                        <img :src="image.product_thumbnail" @click="changeMainImage(image.product_image)">
+                    </figure>
+                </div>
+            </div>
+        {% endif %}
+        <hr>
+        <div class="product-info">
+            <h1 class="title">{{ product.title }}</h1>
+            <h2 class="price">&#8369; {{ product.price }}</h2>
+            <h2 class="rating">
+                <span class="rating-label">Stars: </span>
+                {% if product.get_rating == 0 %}
+                    <span>No ratings yet</span>
+                {% else %}
+                    <span class="rating-stars">
+                        {% for i in "12345" %}
+                            {% if forloop.counter <= product.get_rating %}
+                                <span class="material-icons">star</span>
+                            {% else %}
+                                <span class="material-icons">star_outline</span>
+                            {% endif %}
+                        {% endfor %}
+                    </span>
+                    <span class="rating-value">{{ product.get_rating | floatformat:1 }}</span>
+                {% endif %}
+            </h2>     
+            <h2 class="subtitle">Number available: {{ product.number_available }}</h2>
+        </div>
+
+        {% if product.description %}
+            <p class="description">{{ product.description }}</p>
+        {% endif %}
+        
+        {% if not request.user.is_authenticated %}
+            <p class="auth-message">You need to login or signup to purchase! <a href="{% url 'login' %}" class="auth-link">Log In</a> / <a href="{% url 'signup' %}" class="auth-link">Sign Up</a></p>
+        {% else %}
+            <div class="product-container">
+                {% if product.variants.all %}
+                    <div class="variant-selection">
+                        <table class="variant-table">
+                            <thead>
+                                <tr>
+                                    <th>Variant</th>
+                                    <th>Price</th>
+                                    <th>Availability</th>
+                                    <th id="action-column">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Include the product as the first row, even if it's already in the cart -->
+                                <tr {% if product.in_cart %}class="in-cart"{% endif %}>
+                                    <td class="title">
+                                        <figure class="variant_image" id="variant-image">
+                                            {% if product.product_thumbnail.url %}
+                                                <img src="{{ product.product_thumbnail.url }}" alt="{{ product.title }}">
+                                            {% endif %}
+                                        </figure>
+                                        <p class="table-title">{{ product.title }}</p>
+                                    </td>
+                                    <td>P{{ product.price }}</td>
+                                    <td>
+                                        {% if product.number_available > 0 %}
+                                            Available
+                                        {% else %}
+                                            Out of Stock
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if product.in_cart %}
+                                            <button class="button is-success" disabled>Already in Cart</button>
+                                        {% else %}
+                                            {% if product.number_available > 0 %}
+                                                <div class="add-to-cart">
+                                                    <button @click="addToCart('{{ product.id }}')" class="button is-success">Add to Cart</button>
+                                                </div>
+                                            {% else %}
+                                                <p class="status-message">The product is out of stock.</p>
+                                            {% endif %}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+
+                                
+                                {% for variant in product.variants.all %}
+                                    <tr {% if variant.in_cart %}class="in-cart"{% endif %}>
+                                        <td>
+                                            <figure class="variant_image" id="variant-image">
+                                                {% if variant.product_thumbnail.url %}
+                                                    <img src="{{ variant.product_thumbnail.url }}" alt="{{ variant.title }}">
+                                                {% endif %}
+                                            </figure>
+                                            <p class="table-title">{{ variant.title }}</p>
+                                        </td>
+                                        <td>{{ variant.price }}</td>
+                                        <td>
+                                            {% if variant.number_available > 0 %}
+                                                Available
+                                            {% else %}
+                                                Out of Stock
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if variant.in_cart %}
+                                                <button class="button is-success" disabled>Already in Cart</button>
+                                            {% else %}
+                                                {% if variant.number_available > 0 %}
+                                                <div class="add-to-cart">
+                                                    <button @click="addToCart('{{ product.id }}')" class="button is-success">Add to Cart</button>
+                                                </div>
+                                                {% else %}
+                                                    <p class="status-message">The product is out of stock.</p>
+                                                {% endif %}
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="product-content-wrapper">
+                        <div class="product-actions-container">
+                            <div class="no-variants-wrapper">
+                                {% if product.in_cart %}
+                                    <p class="status-message status-in-cart">Already in cart!</p>
+                                {% else %}
+                                    {% if product.number_available > 0 %}
+                                        <div class="add-to-cart-container">
+                                            <div class="add-to-cart">
+                                                <div class="button-wrapper">
+                                                    <button @click="addToCart('{{ product.id }}')" class="button is-success custom-button">Add to Cart</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <p class="status-message">The product is out of stock.</p>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+             </div>
+        {% endif %}
+
+
+
+
+
+        <article class="message is-success" v-if="showMessage">
+            <div class="message-body">
+                The product was added to the cart!
+            </div>
+        </article>
+
+        <hr>
+
+        
+    </div>
+
+    <section class="related-products-section">
+        <div class="section-header">
+            <h2 class="subtitle">Related Products</h2>
+        </div>
+        <div class="related-products-wrapper">
+            <div class="related-products-inner-wrapper">
+                {% with related_products as listproducts %}
+                    {% include 'parts/product_list.html' %}
+                {% endwith %}
+            </div>
+        </div>
+    </section>
+
+    <hr>
+
+    <section class="reviews-section">
+        <h2 class="reviews-title">Reviews</h2>
+    
+        <div class="reviews-container">
+            {% for review in product.product_reviews.all %}
+                <article class="review-card">
+                    <div class="review-header">
+                        <div class="review-meta">
+                            <time class="review-date">{{ review.date_added|date:"Y-m-d" }}</time>
+                            <div class="review-stars">
+                                {% for i in "12345" %}
+                                    {% if forloop.counter <= review.stars %}
+                                        <span class="material-icons star-filled">star</span>
+                                    {% else %}
+                                        <span class="material-icons star-empty">star_outline</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-content">
+                        {{ review.content }}
+                    </div>
+                </article>
+            {% empty %}
+                <div class="review-empty">
+                    <span class="material-icons">rate_review</span>
+                    <p>No reviews yet</p>
+                </div>
+            {% endfor %}
+    
+            <div class="review-form-container">
+                {% if request.user.is_authenticated %}
+                    <form method="post" action="." class="review-form">
+                        {% csrf_token %}
+    
+                        <div class="form-group">
+                            <label class="form-label">Rating</label>
+                            <div class="rating-select">
+                                <select name="stars" class="form-select">
+                                    <option value="1">★</option>
+                                    <option value="2">★★</option>
+                                    <option value="3" selected>★★★</option>
+                                    <option value="4">★★★★</option>
+                                    <option value="5">★★★★★</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Your Review</label>
+                            <textarea name="content" class="form-textarea" placeholder="Share your thoughts..."></textarea>
+                        </div>
+    
+                        <div class="form-group">
+                            <button type="submit" class="submit-button">
+                                <span class="material-icons">send</span>
+                                Submit Review
+                            </button>
+                        </div>
+                    </form>     
+                {% else %}
+                    <div class="auth-prompt">
+                        <span class="material-icons">lock</span>
+                        <p>Please <a href="{% url 'login' %}" class="auth-link">sign in</a> to leave a review</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+<style>
+
+
+    
+</style>
+
+
+{% block scripts %}
+
+<script>
+    var mainImageProductDetail = '{{ product.product_image.url }}';
+    var imagesProductDetail = ["{{ product_imagesstring|safe }}"];
+
+</script>
+
+    <script src="{% static 'js/product_detail.js' %}"></script>
+{% endblock %}

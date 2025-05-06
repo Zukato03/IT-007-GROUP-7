@@ -1,0 +1,231 @@
+:root {
+    --background-color: #f2f2f2;
+    --accent-color: #68d7ed;
+    --text-color: #333333;
+    --border-color: #dddddd;
+    --header-text: white;
+    --success-color: #4caf50;
+    --danger-color: #ff3860;
+  }
+  
+  body {
+    background-color: var(--background-color);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    padding-top: 30px;
+  }
+  
+  .account-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.5px;
+    color: #000000;
+  }
+  
+  .subtitle {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 2rem 0 1rem;
+    letter-spacing: -0.3px;
+  }
+  
+  hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 2rem 0;
+  }
+  
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .info-item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .info-item p {
+    margin: 0.75rem 0;
+  }
+  
+  .info-item strong {
+    font-weight: 500;
+    min-width: 140px;
+    display: inline-block;
+    color: #000000;
+  }
+  
+  .button {
+    background: white;
+    border: 2px solid var(--accent-color);
+    color: var(--accent-color);
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.95rem;
+    margin-right: 1rem;
+  }
+  
+  .button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(104, 215, 237, 0.2);
+  }
+  
+  .button.is-danger {
+    border-color: var(--danger-color);
+    color: var(--danger-color);
+  }
+  
+  .button.is-success {
+    background: var(--accent-color);
+    color: white;
+  }
+  
+  .button.is-light {
+    border-color: var(--border-color);
+    color: var(--text-color);
+  }
+  
+  .field {
+    margin-bottom: 1.5rem;
+  }
+  
+  .label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+
+  }
+  
+  .input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--background-color);
+    transition: border-color 0.2s;
+    color: #000000;
+  }
+  
+  .input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+  }
+  
+  .notification {
+    padding: 1rem;
+    border-radius: 4px;
+    margin: 1rem 0;
+  }
+  
+  .notification.is-success {
+    background: #e8f5e9;
+    border: 1px solid var(--success-color);
+    color: var(--success-color);
+  }
+  
+  .notification.is-danger {
+    background: #ffebee;
+    border: 1px solid var(--danger-color);
+    color: var(--danger-color);
+  }
+  
+  .message {
+    background-color: white;
+    border-radius: 4px;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    color: #000000;
+  }
+  
+  .message-header {
+    background: var(--accent-color);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 4px 4px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .message-header p {
+    margin: 0;
+  }
+  
+  .message-body {
+    padding: 1.5rem;
+    color: #000000;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 2rem;
+    background-color: white;
+    color: #000000;
+  }
+  
+  .table .table-header th {
+    background: var(--accent-color);
+    color: #000000;
+    font-weight: 500;
+    text-align: left;
+    padding: 1rem;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 1px;
+  }
+  
+  .table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    color: #000000;
+  }
+  
+  .table tbody tr:nth-child(even) {
+    background: var(--background-color);
+  }
+  
+  .table tfoot {
+    font-weight: 500;
+    color: #000000;
+  }
+  
+  .table tfoot td {
+    color: #000000;
+    font-weight: 700;
+  }
+  
+  article {
+    background-color: white;
+  }
+  
+  .customBtn {
+    justify-content: center;
+    align-items: center;
+    background: white;
+    color: #444444;
+    width: 190px;
+    border-radius: 5px;
+    border: thin solid #888888;
+    box-shadow: 1px 1px 1px grey;
+    white-space: nowrap;
+    margin: auto;
+  }

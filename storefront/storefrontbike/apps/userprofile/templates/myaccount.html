@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/myacc.css' %}">
+
+<div class="account-container">
+  <h1 class="title">My Account</h1>
+
+  <div class="logout-section">
+    <form method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit" class="button is-danger">Log Out</button>
+    </form>
+  </div>
+
+  <hr>
+
+  <h2 class="subtitle">Account Information</h2>
+
+  <div id="account-info">
+    <div v-if="!isEditing" class="info-grid">
+      <div class="info-item">
+        <p><strong>Username:</strong> {{ request.user.username }}</p>
+        <p><strong>Name:</strong> {{ request.user.first_name }} {{ request.user.last_name }}</p>
+        <p><strong>Email:</strong> {{ request.user.email }}</p>
+      </div>
+      <div class="info-item">
+        <p><strong>Address:</strong> {{ request.user.userprofile.address }}</p>
+        <p><strong>Contact Number:</strong> {{ request.user.userprofile.contact_number }}</p>
+        <p><strong>Zip Code:</strong> {{ request.user.userprofile.zip_code }}</p>
+      </div>
+      <button class="button is-light" @click="editInfo">Edit Information</button>
+      <div class="notification is-success" v-if="showSuccess">
+        Your status was updated. Reloading...
+      </div>
+    </div>
+
+    <div v-else>
+      <form @submit.prevent="updateInfo" class="info-grid">
+        <div class="info-item">
+          <div class="field">
+            <label class="label">Username</label>
+            <input class="input" type="text" v-model="user.username">
+          </div>
+          <div class="field">
+            <label class="label">First Name</label>
+            <input class="input" type="text" v-model="user.first_name">
+          </div>
+          <div class="field">
+            <label class="label">Last Name</label>
+            <input class="input" type="text" v-model="user.last_name">
+          </div>
+          <div class="field">
+            <label class="label">Email</label>
+            <input class="input" type="email" v-model="user.email">
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="field">
+            <label class="label">Contact Number</label>
+            <input class="input" type="text" v-model="user.userprofile.contact_number">
+          </div>
+          <div class="field">
+            <label class="label">Address</label>
+            <input class="input" type="text" v-model="user.userprofile.address">
+          </div>
+          <div class="field">
+            <label class="label">Zip Code</label>
+            <input class="input" type="text" v-model="user.userprofile.zip_code">
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="field">
+            <label class="label">Password</label>
+            <input class="input" type="password" v-model="user.password1">
+          </div>
+          <div class="field">
+            <label class="label">Password Confirmation</label>
+            <input class="input" type="password" v-model="user.password2">
+          </div>
+        </div>
+        <div class="button-group">
+          <button type="submit" class="button is-success">Save Changes</button>
+          <button type="button" class="button is-light" @click="cancelEdit">Cancel</button>
+        </div>
+        <div class="notification is-danger" v-if="showErrorPassword">
+          Password not matched. Please try again!
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <hr>
+
+  <h2 class="subtitle">My Orders</h2>
+
+  {% for order in request.user.orders.all %}
+    <article class="message">
+      <div class="message-header">
+        <p><strong>Order ID:</strong> {{ order.id }}</p>
+        <p><strong>Order Created:</strong> {{ order.order_created_at }}</p>
+        <p><strong>Status:</strong> {{ order.shipped_status }}</p>
+      </div>
+
+      <div class="message-body">
+        <table class="table">
+          <thead class="table-header">
+            <tr>
+              <th>Title</th>
+              <th>Quantity</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% for item in order.items.all %}
+            <tr>
+              <td>{{ item.product.title }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ item.price }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+
+          <tfoot>
+            <tr>
+              <td>Total</td>
+              <td>{{ order.get_total_quantity }}</td>
+              <td>{{ order.paid_amount }}</td>
+            </tr>
+          </tfoot>
+        </table>
+
+        <table class="table">
+          <thead class="table-header">
+            <tr>
+              <th>Customer Information</th>
+              <th>Customer Details</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>Full Name</td>
+              <td>{{ order.first_name }} {{ order.last_name }}</td>
+            </tr>
+            <tr>
+              <td>Email</td>
+              <td>{{ order.email }}</td>
+            </tr>
+            <tr>
+              <td>Contact Number</td>
+              <td>{{ order.contact_number }}</td>
+            </tr>
+            <tr>
+              <td>Address</td>
+              <td>{{ order.address }}</td>
+            </tr>
+            <tr>
+              <td>Zip Code</td>
+              <td>{{ order.zip_code }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+  {% empty %}
+    <p>You don't have any orders yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+<script> var userDetails = { first_name: "{{ request.user.first_name }}", last_name: "{{ request.user.last_name }}", username: "{{ request.user.username }}", email: "{{ request.user.email }}", userprofile: { contact_number: "{{ request.user.userprofile.contact_number }}", address: "{{ request.user.userprofile.address }}", zip_code: "{{ request.user.userprofile.zip_code }}", }, password1: '', password2: '', }; var fetch_updated_data = '{% url "update_user_info" %}' </script> <!-- <script> function initMap() { const mapDiv = document.getElementById("map"); if (!mapDiv) return; const map = new google.maps.Map(mapDiv, { center: { lat: 37.7749, lng: -122.4194 }, zoom: 8, }); setInitialLocation(map); map.addListener("click", async (mapsMouseEvent) => { const latLng = mapsMouseEvent.latLng.toJSON(); const address = await getAddressFromCoordinates(latLng.lat, latLng.lng); if (address) { app.user.userprofile.address = address; } }); } </script> <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&callback=initMap"></script> --> <script src="{% static 'js/myaccount.js' %}"></script>
+
+{% endblock %}
