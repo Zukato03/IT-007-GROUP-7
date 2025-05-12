@@ -268,7 +268,7 @@ body {
 }
 
 .button.is-success {
-  background-color: #68d7ed;
+  background-color: #8a78f9;
   color: white;
   padding: 0.75rem 1.5rem;
   border: none;
@@ -290,7 +290,7 @@ body {
 
 /* Disabled button styling */
 .no-variants button {
-  background-color: #68d7ed;
+  background-color: #8a78f9;
   color: white;
   padding: 0.5rem 1rem;
   border: none;
@@ -435,7 +435,7 @@ body {
   border-radius: 4px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
-  border-left: 4px solid #68d7ed;
+  border-left: 4px solid #8a78f9;
   border-right: 2px solid #000000;
   border-bottom: 2px solid #000000;
   border-top: 2px solid #000000;
@@ -545,7 +545,7 @@ body {
 .form-textarea:focus,
 .form-select:focus {
   outline: none;
-  border-color: #68d7ed;
+  border-color: #8a78f9;
   box-shadow: 0 0 0 2px rgba(0, 255, 0, 0.1);
 }
 
@@ -553,7 +553,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: #68d7ed;
+  background-color: #8a78f9;
   color: #f2f2f2;
   padding: 0.75rem 1.5rem;
   border: none;
@@ -579,7 +579,7 @@ body {
 }
 
 .auth-link {
-  color: #68d7ed;
+  color: #8a78f9;
   text-decoration: none;
   font-weight: 500;
 }

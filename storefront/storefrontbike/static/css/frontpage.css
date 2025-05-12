@@ -82,7 +82,7 @@ body {
   position: relative;
   margin-top: 2rem;
   padding: 1rem 2.5rem;
-  background-color: #68d7ed;
+  background-color: #8a78f9;
   color: #ffffff;
   text-decoration: none;
   border-radius: 4px;
@@ -148,7 +148,7 @@ body {
 
 .section-line {
   height: 2px;
-  background-color: #68d7ed;
+  background-color: #8a78f9;
   width: 60px;
   margin-left: 1.5rem;
 }
@@ -157,7 +157,7 @@ body {
 .view-all {
   font-family: "Helvetica Neue", sans-serif;
   font-size: 0.875rem;
-  color: #68d7ed;
+  color: #8a78f9;
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 0.5px;

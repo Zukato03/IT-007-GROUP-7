@@ -42,8 +42,8 @@ body {
 
 .advanced-button {
   background-color: #ffffff;
-  border: 2px solid #68d7ed;
-  color: #68d7ed;
+  border: 2px solid #8a78f9;
+  color: #8a78f9;
   padding: 0.75rem 2rem;
   font-family: "Helvetica Neue", sans-serif;
   font-size: 0.875rem;
@@ -54,7 +54,7 @@ body {
 }
 
 .advanced-button:hover {
-  background-color: #68d7ed;
+  background-color: #8a78f9;
   color: #ffffff;
 }
 
@@ -115,7 +115,7 @@ body {
 .form-input:focus,
 .form-select:focus {
   outline: none;
-  border-color: #68d7ed;
+  border-color: #8a78f9;
 }
 
 /* Checkbox Styling */
@@ -137,7 +137,7 @@ body {
 .checkbox-input {
   width: 1.25rem;
   height: 1.25rem;
-  border: 2px solid #68d7ed;
+  border: 2px solid #8a78f9;
   border-radius: 4px;
   cursor: pointer;
 }
@@ -151,7 +151,7 @@ body {
 }
 
 .submit-button {
-  background-color: #68d7ed;
+  background-color: #8a78f9;
   color: white;
   padding: 0.75rem 2rem;
   border: none;

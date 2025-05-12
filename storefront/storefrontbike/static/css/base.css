@@ -29,7 +29,7 @@
 }
 
 .logo-text {
-  color: #68d7ed;
+  color: #8a78f9;
   font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: -0.5px;
@@ -85,7 +85,7 @@
 .search-button {
   background: transparent;
   border: none;
-  color: #68d7ed;
+  color: #8a78f9;
   cursor: pointer;
   padding: 0.5rem;
 }
@@ -147,7 +147,7 @@
 
 .dropdown-item:hover {
   background-color: #f2f2f2;
-  color: #68d7ed;
+  color: #8a78f9;
 }
 
 /* Cart Button Styles */
@@ -161,7 +161,7 @@
 }
 
 .cart-count {
-  background-color: #68d7ed;
+  background-color: #8a78f9;
   color: #000000;
   padding: 0.25rem 0.5rem;
   border-radius: 12px;
@@ -186,7 +186,7 @@
 }
 
 .signup-button {
-  background-color: #68d7ed;
+  background-color: #8a78f9;
   color: #000000;
 }
 
@@ -197,11 +197,11 @@
 }
 
 .signup-button:hover {
-  background-color: #68d7ed;
+  background-color: #8a78f9;
 }
 
 .login-button:hover {
-  border-color: #68d7ed;
+  border-color: #8a78f9;
 }
 
 /* Account Button Styles */
@@ -219,7 +219,7 @@
 }
 
 .account-button:hover {
-  border-color: #68d7ed;
+  border-color: #8a78f9;
 }
 
 /* Mobile Menu Toggle */
